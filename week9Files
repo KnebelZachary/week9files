@@ -1,0 +1,69 @@
+#files.py
+#August, 7 2022
+#Zachary Knebel
+#CIS245
+#this program creates a file to store users information
+
+import os
+from re import X
+
+def full_name(f_name, l_name):
+    #Function creates a full name from user
+    combine_name = f_name +" " + l_name
+    return combine_name
+
+print ("Welcome!")
+print()
+
+#Asks for directory and file name
+print ("In what directory would you like to save your file?")
+directory = input()
+print ("What would you like to call your file?")
+file = input()
+
+#Creates an empty list that will later be used to store users information
+infoList = []
+
+print()
+print ("What is your first name?")
+f_name = input().title()
+print()
+print ("What is your last name?")
+l_name = input().title()
+print()
+print (f"Hello {f_name}, What is your address?")
+address = input()
+print()
+print (f"Thank you, {f_name}. What is a good phone number for you?")
+phone = input()
+
+#Calls the function to create full name
+name = full_name(f_name, l_name)
+
+#adds the user info to the list
+infoList.append(name)
+infoList.append(address)
+infoList.append(phone)
+
+#creates a string from the list separated by commas that can be used to write to the file
+infoStrg = ",".join(infoList)
+
+#creates the file path
+filepath = (f'{directory}\{file}.txt')
+
+#creates the directory if it is not found and writes to file using the string created from the list 
+if not os.path.exists(directory):
+       os.makedirs(directory)
+with open(filepath, "w") as f:
+    f.write (infoStrg)
+
+print()
+print (f"Welcome {f_name}, you can find all your information in your own personal file called {file}.")
+
+#print information to view
+print()
+print ("Here is the information from that file:")
+print()
+with open(filepath, "r") as f:
+    info = f.readlines()
+print(info)
